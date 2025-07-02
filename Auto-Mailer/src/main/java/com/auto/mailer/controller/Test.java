@@ -1,5 +1,7 @@
 package com.auto.mailer.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ public class Test {
 	@Autowired
 	EmailService emailService;
 
+	private static final Logger logger = LogManager.getLogger(Test.class);
+
 	@GetMapping("/")
 	public String test() {
 		return "hello";
@@ -39,13 +43,10 @@ public class Test {
 		return "done";
 	}
 
-	// dummy cron
 	@Scheduled(cron = "${auto.mailer.cron.time}")
 	public void dummyCronJob() {
-		System.out.println("This will run every one minutes");
+		logger.info("This will run every one minutes");
 	}
-
-//	dummy email service
 
 //	dummy sheets api call
 
